@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мой сайт</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      text-align: center;
+    }
+
+    header {
+      padding: 30px;
+      background: #222;
+    }
+
+    h1 {
+      font-size: 40px;
+    }
+
+    button {
+      padding: 15px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #4f7cff;
+      color: white;
+    }
+
+    button:hover {
+      background: #345de0;
+    }
+
+    #text {
+      margin-top: 25px;
+      font-size: 22px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🐱 Мой сайт</h1>
+    <p>Добро пожаловать!</p>
+  </header>
+
+  <main>
+    <h2>Нажми на кнопку</h2>
+
+    <button onclick="hello()">Нажми меня</button>
+
+    <div id="text"></div>
+  </main>
+
+  <script>
+    function hello() {
+      document.getElementById("text").textContent =
+        "Мяу! ❤️ Сайт работает!";
+    }
+  </script>
+
+</body>
+</html>
