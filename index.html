@@ -81,6 +81,51 @@
       border-radius: 15px;
       box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
     }
+
+    /* Описание Матвея */
+    #description {
+      display: none;
+      max-width: 700px;
+      margin: 35px auto 0;
+      text-align: left;
+      font-size: 18px;
+      line-height: 1.7;
+      text-shadow: 0 2px 6px black;
+    }
+
+    #description h3 {
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 25px;
+    }
+
+    #description p {
+      margin-bottom: 25px;
+    }
+
+    #description img {
+      display: block;
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      margin: 25px auto;
+      border-radius: 15px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .info {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 15px;
+      background: rgba(20, 20, 20, 0.7);
+      font-size: 18px;
+      line-height: 1.7;
+      text-align: left;
+    }
+
+    .info p {
+      margin: 8px 0;
+    }
   </style>
 </head>
 
@@ -92,6 +137,7 @@
   </header>
 
   <main>
+
     <h2>Матвей 🐈‍⬛</h2>
 
     <button onclick="showMatvey()">
@@ -100,25 +146,93 @@
 
     <div id="text"></div>
 
+    <!-- Фото Матвея -->
     <div id="cat">
       <img
         src="IMG_20260921_215507_054.jpg"
         alt="Матвей"
       >
     </div>
+
+    <!-- Описание Матвея -->
+    <div id="description">
+
+      <h3>🐈 Описание Матвея</h3>
+
+      <p>
+        Матвей родился 19 апреля 2024 года, и сейчас ему уже 2 года. 🎂🐾
+      </p>
+
+      <p>
+        Он довольно упитанный кот и очень любит спать. 😴
+        Но Матвей также любит гулять. Если долго не выпускать его
+        на улицу, он начинает беситься и носиться по дому. 😂
+      </p>
+
+      <!-- Фото №1 -->
+      <img
+        src="IMG_20260921_231118_187.jpg"
+        alt="Матвей"
+      >
+
+      <p>
+        Матвей — любопытный кот с особенным характером:
+        спокойно-буйный. Иногда он мирно спит, а иногда внезапно
+        превращается в настоящий ураган. 🌪️🐈‍⬛
+      </p>
+
+      <!-- Фото №2 -->
+      <img
+        src="IMG_20260921_231144_199.jpg"
+        alt="Матвей"
+      >
+
+      <div class="info">
+
+        <p>
+          <strong>Дата рождения:</strong>
+          19 апреля 2024 года
+        </p>
+
+        <p>
+          <strong>Возраст:</strong>
+          2 года
+        </p>
+
+        <p>
+          <strong>Любимые занятия:</strong>
+          спать и гулять 😴🌳
+        </p>
+
+        <p>
+          <strong>Характер:</strong>
+          спокойно-буйный 😎
+        </p>
+
+      </div>
+
+    </div>
+
   </main>
 
   <script>
     function showMatvey() {
       const cat = document.getElementById("cat");
       const text = document.getElementById("text");
+      const description = document.getElementById("description");
 
       if (cat.style.display === "block") {
+
         cat.style.display = "none";
+        description.style.display = "none";
         text.textContent = "";
+
       } else {
+
         cat.style.display = "block";
+        description.style.display = "block";
         text.textContent = "Мяу! ❤️ Вот Матвей!";
+
       }
     }
   </script>
