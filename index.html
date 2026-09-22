@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Мой сайт 🐈‍⬛</title>
+  <title>Котмания 🐈‍⬛</title>
 
   <style>
     * {
@@ -47,6 +47,8 @@
     }
 
     button {
+      display: block;
+      margin: 15px auto;
       padding: 15px 25px;
       font-size: 18px;
       font-weight: bold;
@@ -61,6 +63,10 @@
     button:hover {
       background: #345de0;
     }
+
+    /* =========================
+       МАТВЕЙ
+       ========================= */
 
     #text {
       margin-top: 25px;
@@ -82,7 +88,10 @@
       box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
     }
 
-    /* Описание Матвея */
+    /* =========================
+       ОПИСАНИЕ
+       ========================= */
+
     #description {
       display: none;
       max-width: 700px;
@@ -126,13 +135,135 @@
     .info p {
       margin: 8px 0;
     }
+
+    /* =========================
+       МИНИ-ИГРА
+       ========================= */
+
+    #game {
+      display: none;
+      margin: 25px auto;
+      max-width: 500px;
+      padding: 25px;
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.65);
+    }
+
+    #game h3,
+    #chat h3 {
+      font-size: 26px;
+      margin-top: 0;
+    }
+
+    .mood-bar {
+      width: 100%;
+      height: 30px;
+      background: #333;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 15px 0 10px;
+      border: 2px solid white;
+    }
+
+    #mood {
+      width: 0%;
+      height: 100%;
+      background: #4caf50;
+      transition: width 0.3s;
+    }
+
+    #moodText {
+      font-size: 22px;
+      font-weight: bold;
+      margin: 15px;
+    }
+
+    #game button {
+      display: inline-block;
+      margin: 8px;
+      background: #ff8c42;
+    }
+
+    #game button:hover {
+      background: #e66f25;
+    }
+
+    /* =========================
+       ЧАТ
+       ========================= */
+
+    #chat {
+      display: none;
+      max-width: 500px;
+      margin: 25px auto;
+      padding: 20px;
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    #messages {
+      min-height: 120px;
+      max-height: 250px;
+      overflow-y: auto;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .message {
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      font-size: 18px;
+      text-align: left;
+    }
+
+    .user-message {
+      text-align: right;
+    }
+
+    #chatInput {
+      width: 90%;
+      padding: 13px;
+      border: none;
+      border-radius: 10px;
+      font-size: 17px;
+      margin-bottom: 10px;
+    }
+
+    #chat button {
+      background: #9b59b6;
+    }
+
+    #chat button:hover {
+      background: #7d3c98;
+    }
+
+    #chat button:disabled {
+      background: #555;
+      cursor: not-allowed;
+    }
+
+    #messageCount {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-top: 5px;
+    }
+
+    #timer {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
   </style>
 </head>
 
 <body>
 
   <header>
-    <h1>🐈‍⬛ Мой сайт</h1>
+    <h1>🐈‍⬛ Котмания</h1>
     <p>Добро пожаловать!</p>
   </header>
 
@@ -140,36 +271,120 @@
 
     <h2>Матвей 🐈‍⬛</h2>
 
+    <!-- =========================
+         МИНИ-ИГРА
+         ========================= -->
+
+    <button onclick="toggleGame()">
+      🎮 Мини игра с Матвеем
+    </button>
+
+    <div id="game">
+
+      <h3>🐈‍⬛ Настроение Матвея</h3>
+
+      <div class="mood-bar">
+        <div id="mood"></div>
+      </div>
+
+      <div id="moodText">
+        Настроение: 0%
+      </div>
+
+      <button onclick="feedMatvey()">
+        🍗 Покормить
+      </button>
+
+      <button onclick="petMatvey()">
+        ❤️ Погладить
+      </button>
+
+    </div>
+
+
+    <!-- =========================
+         ЧАТ
+         ========================= -->
+
+    <button onclick="toggleChat()">
+      💬 Чат с Матвеем
+    </button>
+
+    <div id="chat">
+
+      <h3>💬 Чат с Матвеем 🐈‍⬛</h3>
+
+      <div id="messages">
+
+        <div class="message">
+          🐈‍⬛ Матвей: Мяу ❤️
+        </div>
+
+      </div>
+
+      <input
+        id="chatInput"
+        type="text"
+        placeholder="Напиши Матвею..."
+        maxlength="200"
+        onkeydown="handleEnter(event)"
+      >
+
+      <button onclick="sendMessage()">
+        📤 Отправить
+      </button>
+
+      <div id="messageCount">
+        Сообщений: 0 / 20
+      </div>
+
+      <div id="timer"></div>
+
+    </div>
+
+
+    <!-- =========================
+         ПОКАЗАТЬ МАТВЕЯ
+         ========================= -->
+
     <button onclick="showMatvey()">
       🐈‍⬛ Показать Матвея
     </button>
 
     <div id="text"></div>
 
-    <!-- Фото Матвея -->
     <div id="cat">
+
       <img
         src="IMG_20260921_215507_054.jpg"
         alt="Матвей"
       >
+
     </div>
 
-    <!-- Описание Матвея -->
+
+    <!-- =========================
+         ОПИСАНИЕ МАТВЕЯ
+         ========================= -->
+
     <div id="description">
 
       <h3>🐈 Описание Матвея</h3>
 
       <p>
-        Матвей родился 19 апреля 2024 года, и сейчас ему уже 2 года. 🎂🐾
+        Матвей родился 19 апреля 2024 года,
+        и сейчас ему уже 2 года. 🎂🐾
       </p>
 
       <p>
         Он довольно упитанный кот и очень любит спать. 😴
-        Но Матвей также любит гулять. Если долго не выпускать его
-        на улицу, он начинает беситься и носиться по дому. 😂
+        Но Матвей также любит гулять.
+        Если долго не выпускать его на улицу,
+        он начинает беситься и носиться по дому. 😂
       </p>
 
-      <!-- Фото №1 -->
+      <!-- ФОТО №1 -->
+
       <img
         src="IMG_20260921_231118_187.jpg"
         alt="Матвей"
@@ -177,11 +392,14 @@
 
       <p>
         Матвей — любопытный кот с особенным характером:
-        спокойно-буйный. Иногда он мирно спит, а иногда внезапно
-        превращается в настоящий ураган. 🌪️🐈‍⬛
+        <strong>спокойно-буйный.</strong>
+        Иногда он мирно спит,
+        а иногда внезапно превращается
+        в настоящий ураган. 🌪️🐈‍⬛
       </p>
 
-      <!-- Фото №2 -->
+      <!-- ФОТО №2 -->
+
       <img
         src="IMG_20260921_231144_199.jpg"
         alt="Матвей"
@@ -190,23 +408,23 @@
       <div class="info">
 
         <p>
-          <strong>Дата рождения:</strong>
+          <strong>📅 Дата рождения:</strong>
           19 апреля 2024 года
         </p>
 
         <p>
-          <strong>Возраст:</strong>
+          <strong>🎂 Возраст:</strong>
           2 года
         </p>
 
         <p>
-          <strong>Любимые занятия:</strong>
+          <strong>😴 Любимые занятия:</strong>
           спать и гулять 😴🌳
         </p>
 
         <p>
-          <strong>Характер:</strong>
-          спокойно-буйный 😎
+          <strong>😎 Характер:</strong>
+          спокойно-буйный
         </p>
 
       </div>
@@ -215,26 +433,390 @@
 
   </main>
 
+
   <script>
-    function showMatvey() {
-      const cat = document.getElementById("cat");
-      const text = document.getElementById("text");
-      const description = document.getElementById("description");
 
-      if (cat.style.display === "block") {
+    /* =========================
+       ЗАКРЫТЬ ВСЕ РАЗДЕЛЫ
+       ========================= */
 
-        cat.style.display = "none";
-        description.style.display = "none";
-        text.textContent = "";
+    function closeAllSections() {
 
-      } else {
+      document.getElementById("game").style.display = "none";
 
-        cat.style.display = "block";
-        description.style.display = "block";
-        text.textContent = "Мяу! ❤️ Вот Матвей!";
+      document.getElementById("chat").style.display = "none";
+
+      document.getElementById("cat").style.display = "none";
+
+      document.getElementById("description").style.display = "none";
+
+      document.getElementById("text").textContent = "";
+    }
+
+
+    /* =========================
+       МИНИ-ИГРА
+       ========================= */
+
+    let mood = 0;
+
+    function toggleGame() {
+
+      const game =
+        document.getElementById("game");
+
+      const isOpen =
+        game.style.display === "block";
+
+      closeAllSections();
+
+      if (!isOpen) {
+
+        game.style.display = "block";
 
       }
     }
+
+
+    function feedMatvey() {
+
+      increaseMood();
+
+    }
+
+
+    function petMatvey() {
+
+      increaseMood();
+
+    }
+
+
+    function increaseMood() {
+
+      const amount =
+        Math.floor(Math.random() * 3) + 2;
+
+      mood += amount;
+
+
+      const phrases = [
+        "Мяу ❤️",
+        "Муррр 😻",
+        "Шшшсс 😾"
+      ];
+
+
+      const randomPhrase =
+        phrases[
+          Math.floor(
+            Math.random() * phrases.length
+          )
+        ];
+
+
+      if (mood >= 100) {
+
+        mood = 0;
+
+        document.getElementById("moodText").textContent =
+          "Муррр! ❤️ Матвей очень доволен!";
+
+      } else {
+
+        document.getElementById("moodText").textContent =
+          randomPhrase +
+          " Настроение: " +
+          mood +
+          "%";
+
+      }
+
+
+      document.getElementById("mood").style.width =
+        mood + "%";
+
+    }
+
+
+    /* =========================
+       ЧАТ
+       ========================= */
+
+    let messageCount = 0;
+
+    const maxMessages = 20;
+
+    let chatLocked = false;
+
+    let lockTimer = null;
+
+
+    function toggleChat() {
+
+      const chat =
+        document.getElementById("chat");
+
+      const isOpen =
+        chat.style.display === "block";
+
+      closeAllSections();
+
+      if (!isOpen) {
+
+        chat.style.display = "block";
+
+      }
+    }
+
+
+    function handleEnter(event) {
+
+      if (event.key === "Enter") {
+
+        sendMessage();
+
+      }
+
+    }
+
+
+    function sendMessage() {
+
+      if (chatLocked) {
+
+        return;
+
+      }
+
+
+      const input =
+        document.getElementById("chatInput");
+
+      const messages =
+        document.getElementById("messages");
+
+      const text =
+        input.value.trim();
+
+
+      if (text === "") {
+
+        return;
+
+      }
+
+
+      /* Сообщение пользователя */
+
+      const userMessage =
+        document.createElement("div");
+
+      userMessage.className =
+        "message user-message";
+
+      userMessage.textContent =
+        "Ты: " + text;
+
+      messages.appendChild(userMessage);
+
+
+      /* Ответ Матвея */
+
+      const phrases = [
+        "Мяу ❤️",
+        "Муррр 😻"
+      ];
+
+
+      const randomPhrase =
+        phrases[
+          Math.floor(
+            Math.random() * phrases.length
+          )
+        ];
+
+
+      const matveyMessage =
+        document.createElement("div");
+
+      matveyMessage.className =
+        "message";
+
+      matveyMessage.textContent =
+        "🐈‍⬛ Матвей: " +
+        randomPhrase;
+
+      messages.appendChild(matveyMessage);
+
+
+      messageCount++;
+
+      input.value = "";
+
+
+      document.getElementById("messageCount").textContent =
+        "Сообщений: " +
+        messageCount +
+        " / 20";
+
+
+      messages.scrollTop =
+        messages.scrollHeight;
+
+
+      if (messageCount >= maxMessages) {
+
+        lockChat();
+
+      }
+
+    }
+
+
+    /* =========================
+       БЛОКИРОВКА НА 10 МИНУТ
+       ========================= */
+
+    function lockChat() {
+
+      chatLocked = true;
+
+
+      const input =
+        document.getElementById("chatInput");
+
+
+      const button =
+        document.querySelector("#chat button");
+
+
+      input.disabled = true;
+
+      button.disabled = true;
+
+
+      document.getElementById("messageCount").textContent =
+        "🐈‍⬛ Матвей перегрузился!";
+
+
+      let secondsLeft = 600;
+
+
+      updateTimer(secondsLeft);
+
+
+      lockTimer =
+        setInterval(function() {
+
+          secondsLeft--;
+
+          updateTimer(secondsLeft);
+
+
+          if (secondsLeft <= 0) {
+
+            clearInterval(lockTimer);
+
+            unlockChat();
+
+          }
+
+        }, 1000);
+
+    }
+
+
+    function updateTimer(seconds) {
+
+      const minutes =
+        Math.floor(seconds / 60);
+
+      const secondsPart =
+        seconds % 60;
+
+
+      document.getElementById("timer").textContent =
+        "⏳ Отдых: " +
+        minutes +
+        ":" +
+        String(secondsPart).padStart(2, "0");
+
+    }
+
+
+    /* =========================
+       РАЗБЛОКИРОВКА
+       ========================= */
+
+    function unlockChat() {
+
+      chatLocked = false;
+
+      messageCount = 0;
+
+
+      const input =
+        document.getElementById("chatInput");
+
+
+      const button =
+        document.querySelector("#chat button");
+
+
+      input.disabled = false;
+
+      button.disabled = false;
+
+      input.value = "";
+
+
+      document.getElementById("messageCount").textContent =
+        "Сообщений: 0 / 20";
+
+
+      document.getElementById("timer").textContent =
+        "🐈‍⬛ Матвей снова в строю! Мяу ❤️";
+
+    }
+
+
+    /* =========================
+       ПОКАЗ МАТВЕЯ
+       ========================= */
+
+    function showMatvey() {
+
+      const cat =
+        document.getElementById("cat");
+
+      const description =
+        document.getElementById("description");
+
+      const text =
+        document.getElementById("text");
+
+
+      const isOpen =
+        cat.style.display === "block";
+
+
+      closeAllSections();
+
+
+      if (!isOpen) {
+
+        cat.style.display = "block";
+
+        description.style.display = "block";
+
+        text.textContent =
+          "Мяу! ❤️ Вот Матвей!";
+
+      }
+
+    }
+
   </script>
 
 </body>
