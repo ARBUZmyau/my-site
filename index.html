@@ -1,823 +1,1873 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Котмания 🐈‍⬛</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<title>🐈‍⬛ Котмания</title>
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      color: white;
-      text-align: center;
+<style>
+:root{
+  --button-color:#2196f3;
+}
 
-      background:
-        linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
-        url("IMG_20260620_143017_957.jpg")
-        center center / cover fixed no-repeat;
-    }
+*{
+  box-sizing:border-box;
+}
 
-    header {
-      padding: 30px 15px;
-      background: rgba(20, 20, 20, 0.75);
-    }
+html{
+  scroll-behavior:smooth;
+}
 
-    h1 {
-      margin: 0;
-      font-size: 40px;
-    }
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Arial,sans-serif;
+  color:#fff;
+  text-align:center;
 
-    header p {
-      font-size: 18px;
-    }
+  background:
+    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.58)),
+    url("IMG_20260620_143017_957.jpg") center/cover no-repeat fixed;
+}
 
-    main {
-      padding: 40px 20px;
-    }
+.container{
+  width:min(100% - 20px,900px);
+  margin:auto;
+  padding:15px 0 40px;
+}
 
-    h2 {
-      font-size: 28px;
-      text-shadow: 0 2px 8px black;
-    }
+.card{
+  background:rgba(20,20,20,.78);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:16px;
+  contain:layout paint;
+}
 
-    button {
-      display: block;
-      margin: 15px auto;
-      padding: 15px 25px;
-      font-size: 18px;
-      font-weight: bold;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      background: #4f7cff;
-      color: white;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-    }
+h1{
+  margin:5px 0 20px;
+  font-size:clamp(28px,7vw,48px);
+}
 
-    button:hover {
-      background: #345de0;
-    }
+h2{
+  margin-top:0;
+}
 
-    /* =========================
-       МАТВЕЙ
-       ========================= */
+button{
+  border:0;
+  border-radius:13px;
+  padding:12px 16px;
+  margin:4px;
 
-    #text {
-      margin-top: 25px;
-      font-size: 22px;
-      font-weight: bold;
-      text-shadow: 0 2px 6px black;
-    }
+  color:#fff;
+  background:var(--button-color);
 
-    #cat {
-      display: none;
-      margin-top: 25px;
-    }
+  font-size:16px;
+  font-weight:bold;
 
-    #cat img {
-      width: 300px;
-      max-width: 80%;
-      height: auto;
-      border-radius: 15px;
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
-    }
+  cursor:pointer;
 
-    /* =========================
-       ОПИСАНИЕ
-       ========================= */
+  transition:
+    transform .15s ease,
+    filter .15s ease;
+}
 
-    #description {
-      display: none;
-      max-width: 700px;
-      margin: 35px auto 0;
-      text-align: left;
-      font-size: 18px;
-      line-height: 1.7;
-      text-shadow: 0 2px 6px black;
-    }
+button:hover{
+  filter:brightness(1.12);
+  transform:translateY(-2px);
+}
 
-    #description h3 {
-      text-align: center;
-      font-size: 30px;
-      margin-bottom: 25px;
-    }
+button:active{
+  transform:scale(.96);
+}
 
-    #description p {
-      margin-bottom: 25px;
-    }
+.buttons{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+}
 
-    #description img {
-      display: block;
-      width: 100%;
-      max-width: 500px;
-      height: auto;
-      margin: 25px auto;
-      border-radius: 15px;
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
-    }
+.section{
+  display:none;
+  max-height:0;
+  overflow:hidden;
 
-    .info {
-      margin-top: 30px;
-      padding: 20px;
-      border-radius: 15px;
-      background: rgba(20, 20, 20, 0.7);
-      font-size: 18px;
-      line-height: 1.7;
-      text-align: left;
-    }
+  opacity:0;
+  transform:translateY(-10px);
 
-    .info p {
-      margin: 8px 0;
-    }
+  transition:
+    max-height .45s ease,
+    opacity .3s ease,
+    transform .3s ease;
+}
 
-    /* =========================
-       МИНИ-ИГРА
-       ========================= */
+.section.open{
+  display:block;
+  max-height:6000px;
+  opacity:1;
+  transform:translateY(0);
+}
 
-    #game {
-      display: none;
-      margin: 25px auto;
-      max-width: 500px;
-      padding: 25px;
-      border-radius: 20px;
-      background: rgba(0, 0, 0, 0.65);
-    }
+/* ===== ФОТО ===== */
 
-    #game h3,
-    #chat h3 {
-      font-size: 26px;
-      margin-top: 0;
-    }
+.cat-photo,
+.description-photo{
+  display:block;
+  width:100%;
+  max-width:600px;
+  height:auto;
+  margin:15px auto;
+  border-radius:18px;
+}
 
-    .mood-bar {
-      width: 100%;
-      height: 30px;
-      background: #333;
-      border-radius: 20px;
-      overflow: hidden;
-      margin: 15px 0 10px;
-      border: 2px solid white;
-    }
+.description-photo{
+  max-height:650px;
+  object-fit:cover;
+}
 
-    #mood {
-      width: 0%;
-      height: 100%;
-      background: #4caf50;
-      transition: width 0.3s;
-    }
+/* ===== ИНФОРМАЦИЯ ===== */
 
-    #moodText {
-      font-size: 22px;
-      font-weight: bold;
-      margin: 15px;
-    }
+.info{
+  background:rgba(255,255,255,.09);
+  border-radius:15px;
+  padding:14px;
+  margin-top:15px;
+  text-align:left;
+}
 
-    #game button {
-      display: inline-block;
-      margin: 8px;
-      background: #ff8c42;
-    }
+/* ===== НАСТРОЕНИЕ ===== */
 
-    #game button:hover {
-      background: #e66f25;
-    }
+.mood-bar{
+  width:100%;
+  height:25px;
+  background:rgba(255,255,255,.14);
+  border-radius:20px;
+  overflow:hidden;
+  margin:15px 0;
+}
 
-    /* =========================
-       ЧАТ
-       ========================= */
+#moodFill{
+  width:50%;
+  height:100%;
+  background:#4caf50;
+  border-radius:20px;
+  transition:width .3s ease;
+}
 
-    #chat {
-      display: none;
-      max-width: 500px;
-      margin: 25px auto;
-      padding: 20px;
-      border-radius: 20px;
-      background: rgba(0, 0, 0, 0.7);
-    }
+#moodText{
+  min-height:25px;
+  font-size:18px;
+  font-weight:bold;
+}
 
-    #messages {
-      min-height: 120px;
-      max-height: 250px;
-      overflow-y: auto;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.1);
-    }
+/* ===== МЫШКА ===== */
 
-    .message {
-      margin: 8px 0;
-      padding: 10px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.15);
-      font-size: 18px;
-      text-align: left;
-    }
+.mouse-area{
+  position:relative;
+  width:100%;
+  max-width:500px;
+  height:260px;
+  margin:20px auto;
 
-    .user-message {
-      text-align: right;
-    }
+  background:rgba(255,255,255,.07);
+  border-radius:18px;
+  overflow:hidden;
+}
 
-    #chatInput {
-      width: 90%;
-      padding: 13px;
-      border: none;
-      border-radius: 10px;
-      font-size: 17px;
-      margin-bottom: 10px;
-    }
+.mouse{
+  position:absolute;
 
-    #chat button {
-      background: #9b59b6;
-    }
+  left:50%;
+  top:50%;
 
-    #chat button:hover {
-      background: #7d3c98;
-    }
+  font-size:42px;
+  cursor:pointer;
+  user-select:none;
+  touch-action:manipulation;
 
-    #chat button:disabled {
-      background: #555;
-      cursor: not-allowed;
-    }
+  transform:translate(-50%,-50%);
 
-    #messageCount {
-      font-size: 14px;
-      opacity: 0.8;
-      margin-top: 5px;
-    }
+  transition:
+    left .16s ease,
+    top .16s ease,
+    opacity .16s ease,
+    transform .16s ease;
+}
 
-    #timer {
-      font-size: 18px;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-  </style>
+.mouse.caught{
+  opacity:0;
+  transform:translate(-50%,-50%) scale(.2);
+}
+
+/* ===== ЧАТ ===== */
+
+.chat-messages{
+  max-height:420px;
+  overflow-y:auto;
+
+  text-align:left;
+
+  padding:8px;
+  margin-top:10px;
+
+  background:rgba(0,0,0,.15);
+  border-radius:15px;
+}
+
+.message{
+  padding:9px 12px;
+  margin:6px 0;
+
+  border-radius:12px;
+  word-break:break-word;
+}
+
+.user-message{
+  background:rgba(33,150,243,.35);
+  text-align:right;
+}
+
+.matvey-message{
+  background:rgba(76,175,80,.25);
+}
+
+.chat-input{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
+
+.chat-input input{
+  flex:1;
+  min-width:0;
+
+  padding:13px;
+
+  border:0;
+  outline:none;
+  border-radius:12px;
+
+  font-size:16px;
+}
+
+.chat-input button{
+  margin:0;
+}
+
+.chat-counter{
+  margin:10px 0 3px;
+  font-weight:bold;
+}
+
+.chat-status{
+  min-height:22px;
+  margin:5px 0;
+}
+
+/* ===== НАСТРОЙКИ ===== */
+
+.setting{
+  margin:15px 0;
+}
+
+select{
+  padding:10px;
+  border:0;
+  border-radius:10px;
+  font-size:16px;
+}
+
+/* ===== ЛАПКА ===== */
+
+#pawEffect{
+  position:fixed;
+  left:0;
+  top:0;
+
+  display:none;
+
+  pointer-events:none;
+  z-index:9999;
+
+  font-size:28px;
+
+  transform:translate(-50%,-50%);
+}
+
+#pawEffect.show{
+  display:block;
+  animation:paw .5s ease-out forwards;
+}
+
+@keyframes paw{
+  0%{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(.7);
+  }
+
+  100%{
+    opacity:0;
+    transform:translate(-50%,-80%) scale(1.2);
+  }
+}
+
+/* ===== РАЗМЕР ШРИФТА ===== */
+
+.font-small{
+  font-size:14px;
+}
+
+.font-normal{
+  font-size:16px;
+}
+
+.font-large{
+  font-size:19px;
+}
+
+/* ===== АНИМАЦИИ OFF ===== */
+
+.no-animations *,
+.no-animations *::before,
+.no-animations *::after{
+  animation:none !important;
+  transition:none !important;
+}
+
+/* ===== МОБИЛЬНЫЕ ===== */
+
+@media(max-width:600px){
+
+  body{
+    background-attachment:scroll;
+  }
+
+  .container{
+    width:calc(100% - 12px);
+    padding-top:8px;
+  }
+
+  .card{
+    padding:14px;
+    border-radius:17px;
+  }
+
+  button{
+    width:100%;
+    margin:4px 0;
+  }
+
+  .chat-input{
+    flex-direction:column;
+  }
+
+  .chat-input button{
+    width:100%;
+  }
+
+  .mouse-area{
+    height:220px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    animation:none !important;
+    transition:none !important;
+    scroll-behavior:auto !important;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <h1>🐈‍⬛ Котмания</h1>
-    <p>Добро пожаловать!</p>
-  </header>
+<div id="pawEffect">🐾</div>
 
-  <main>
+<div class="container">
 
-    <h2>Матвей 🐈‍⬛</h2>
+<!-- ==================== ГЛАВНЫЙ БЛОК ==================== -->
 
-    <!-- =========================
-         МИНИ-ИГРА
-         ========================= -->
+<div class="card">
 
-    <button onclick="toggleGame()">
-      🎮 Мини игра с Матвеем
+  <h1 id="title">🐈‍⬛ Котмания</h1>
+
+  <div class="buttons">
+
+    <button id="gameBtn">
+      🎮 Поиграть с Матвеем
     </button>
 
-    <div id="game">
-
-      <h3>🐈‍⬛ Настроение Матвея</h3>
-
-      <div class="mood-bar">
-        <div id="mood"></div>
-      </div>
-
-      <div id="moodText">
-        Настроение: 0%
-      </div>
-
-      <button onclick="feedMatvey()">
-        🍗 Покормить
-      </button>
-
-      <button onclick="petMatvey()">
-        ❤️ Погладить
-      </button>
-
-    </div>
-
-
-    <!-- =========================
-         ЧАТ
-         ========================= -->
-
-    <button onclick="toggleChat()">
-      💬 Чат с Матвеем
+    <button id="chatBtn">
+      💬 Поговорить с Матвеем
     </button>
 
-    <div id="chat">
-
-      <h3>💬 Чат с Матвеем 🐈‍⬛</h3>
-
-      <div id="messages">
-
-        <div class="message">
-          🐈‍⬛ Матвей: Мяу ❤️
-        </div>
-
-      </div>
-
-      <input
-        id="chatInput"
-        type="text"
-        placeholder="Напиши Матвею..."
-        maxlength="200"
-        onkeydown="handleEnter(event)"
-      >
-
-      <button onclick="sendMessage()">
-        📤 Отправить
-      </button>
-
-      <div id="messageCount">
-        Сообщений: 0 / 20
-      </div>
-
-      <div id="timer"></div>
-
-    </div>
-
-
-    <!-- =========================
-         ПОКАЗАТЬ МАТВЕЯ
-         ========================= -->
-
-    <button onclick="showMatvey()">
+    <button id="catBtn">
       🐈‍⬛ Показать Матвея
     </button>
 
-    <div id="text"></div>
+    <button id="settingsBtn">
+      ⚙️ Настройки
+    </button>
 
-    <div id="cat">
+  </div>
 
-      <img
-        src="IMG_20260921_215507_054.jpg"
-        alt="Матвей"
-      >
+</div>
 
+
+<!-- ==================== НАСТРОЙКИ ==================== -->
+
+<div id="settingsSection" class="card section">
+
+  <h2 id="settingsTitle">⚙️ Настройки</h2>
+
+  <div class="setting">
+
+    <h3 id="languageTitle">
+      🌐 Язык интерфейса
+    </h3>
+
+    <button id="ruInterfaceBtn">
+      🇷🇺 Русский
+    </button>
+
+    <button id="enInterfaceBtn">
+      🇬🇧 English
+    </button>
+
+  </div>
+
+
+  <div class="setting">
+
+    <h3 id="fontTitle">
+      🔤 Размер текста
+    </h3>
+
+    <select id="fontSize">
+
+      <option value="small">
+        Маленький
+      </option>
+
+      <option value="normal" selected>
+        Обычный
+      </option>
+
+      <option value="large">
+        Большой
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <div class="setting">
+
+    <h3 id="colorTitle">
+      🎨 Цвет кнопок
+    </h3>
+
+    <button class="colorBtn" data-color="#2196f3">
+      🔵 Синий
+    </button>
+
+    <button class="colorBtn" data-color="#9c27b0">
+      🟣 Фиолетовый
+    </button>
+
+    <button class="colorBtn" data-color="#e91e63">
+      🩷 Розовый
+    </button>
+
+    <button class="colorBtn" data-color="#4caf50">
+      🟢 Зелёный
+    </button>
+
+    <button class="colorBtn" data-color="#ff9800">
+      🟠 Оранжевый
+    </button>
+
+  </div>
+
+
+  <div class="setting">
+
+    <h3 id="animationTitle">
+      ✨ Анимации
+    </h3>
+
+    <button id="animationBtn">
+      ✨ Анимации: ВКЛ
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ==================== ИГРЫ ==================== -->
+
+<div id="gameSection" class="card section">
+
+  <h2>🎮 Игры с Матвеем</h2>
+
+
+  <!-- НАСТРОЕНИЕ -->
+
+  <h3>❤️ Настроение Матвея</h3>
+
+  <div class="mood-bar">
+    <div id="moodFill"></div>
+  </div>
+
+  <div id="moodText">
+    😺 Мяу ❤️ Матвей доволен!
+  </div>
+
+  <div class="buttons">
+
+    <button id="feedBtn">
+      🍗 Покормить
+    </button>
+
+    <button id="petBtn">
+      ❤️ Погладить
+    </button>
+
+  </div>
+
+
+  <hr>
+
+
+  <!-- МЫШКА -->
+
+  <h3>🐭 Поймай мышку!</h3>
+
+  <p>
+    Счёт:
+    <b><span id="mouseScore">0</span>/10</b>
+  </p>
+
+  <div id="mouseArea" class="mouse-area">
+
+    <div id="mouse" class="mouse">
+      🐭
     </div>
 
+  </div>
 
-    <!-- =========================
-         ОПИСАНИЕ МАТВЕЯ
-         ========================= -->
+  <p id="mouseResult"></p>
 
-    <div id="description">
-
-      <h3>🐈 Описание Матвея</h3>
-
-      <p>
-        Матвей родился 19 апреля 2024 года,
-        и сейчас ему уже 2 года. 🎂🐾
-      </p>
-
-      <p>
-        Он довольно упитанный кот и очень любит спать. 😴
-        Но Матвей также любит гулять.
-        Если долго не выпускать его на улицу,
-        он начинает беситься и носиться по дому. 😂
-      </p>
-
-      <!-- ФОТО №1 -->
-
-      <img
-        src="IMG_20260921_231118_187.jpg"
-        alt="Матвей"
-      >
-
-      <p>
-        Матвей — любопытный кот с особенным характером:
-        <strong>спокойно-буйный.</strong>
-        Иногда он мирно спит,
-        а иногда внезапно превращается
-        в настоящий ураган. 🌪️🐈‍⬛
-      </p>
-
-      <!-- ФОТО №2 -->
-
-      <img
-        src="IMG_20260921_231144_199.jpg"
-        alt="Матвей"
-      >
-
-      <div class="info">
-
-        <p>
-          <strong>📅 Дата рождения:</strong>
-          19 апреля 2024 года
-        </p>
-
-        <p>
-          <strong>🎂 Возраст:</strong>
-          2 года
-        </p>
-
-        <p>
-          <strong>😴 Любимые занятия:</strong>
-          спать и гулять 😴🌳
-        </p>
-
-        <p>
-          <strong>😎 Характер:</strong>
-          спокойно-буйный
-        </p>
-
-      </div>
-
-    </div>
-
-  </main>
+</div>
 
 
-  <script>
+<!-- ==================== ЧАТ ==================== -->
 
-    /* =========================
-       ЗАКРЫТЬ ВСЕ РАЗДЕЛЫ
-       ========================= */
+<div id="chatSection" class="card section">
 
-    function closeAllSections() {
+  <h2 id="chatTitle">
+    💬 Поговорить с Матвеем
+  </h2>
 
-      document.getElementById("game").style.display = "none";
 
-      document.getElementById("chat").style.display = "none";
+  <div>
 
-      document.getElementById("cat").style.display = "none";
+    <button id="ruChatBtn">
+      🇷🇺 Русский
+    </button>
 
-      document.getElementById("description").style.display = "none";
+    <button id="enChatBtn">
+      🇬🇧 English
+    </button>
 
-      document.getElementById("text").textContent = "";
+  </div>
+
+
+  <!-- СЧЁТЧИК ЛИМИТА -->
+
+  <div
+    id="chatCounter"
+    class="chat-counter"
+  >
+    💬 Сообщений: 0/20
+  </div>
+
+
+  <div
+    id="chatStatus"
+    class="chat-status"
+  ></div>
+
+
+  <div
+    id="chatMessages"
+    class="chat-messages"
+  ></div>
+
+
+  <div class="chat-input">
+
+    <input
+      id="chatInput"
+      type="text"
+      maxlength="200"
+      autocomplete="off"
+      placeholder="Напиши Матвею..."
+    >
+
+    <button id="sendBtn">
+      ➤
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ==================== МАТВЕЙ ==================== -->
+
+<div id="catSection" class="card section">
+
+  <h2>🐈‍⬛ Матвей</h2>
+
+  <!-- ЭТО ИМЕННО ФОТО МАТВЕЯ -->
+
+  <img
+    class="cat-photo"
+    src="IMG_20260921_215507_054.jpg"
+    alt="Фото Матвея"
+    loading="lazy"
+    decoding="async"
+  >
+
+  <h3 id="catMessage">
+    Мяу! ❤️ Вот Матвей!
+  </h3>
+
+</div>
+
+
+<!-- ==================== ОПИСАНИЕ ==================== -->
+
+<div id="descriptionSection" class="card section">
+
+  <h2>🐈 О Матвее</h2>
+
+
+  <p>
+    Матвей родился 19 апреля 2024 года,
+    и сейчас ему уже 2 года. 🎂🐾
+  </p>
+
+
+  <p>
+    Он довольно упитанный кот и очень любит спать. 😴
+    Но Матвей также любит гулять.
+    Если долго не выпускать его на улицу,
+    он начинает беситься и носиться по дому. 😂
+  </p>
+
+
+  <img
+    class="description-photo"
+    src="IMG_20260921_231118_187.jpg"
+    alt="Матвей"
+    loading="lazy"
+    decoding="async"
+  >
+
+
+  <p>
+    Матвей — любопытный кот с особенным характером:
+    спокойно-буйный.
+    Иногда он мирно спит,
+    а иногда внезапно превращается
+    в настоящий ураган. 🌪️🐈‍⬛
+  </p>
+
+
+  <img
+    class="description-photo"
+    src="IMG_20260921_231144_199.jpg"
+    alt="Матвей"
+    loading="lazy"
+    decoding="async"
+  >
+
+
+  <div class="info">
+
+    <p>
+      <b>Дата рождения:</b>
+      19 апреля 2024 года
+    </p>
+
+    <p>
+      <b>Возраст:</b>
+      2 года
+    </p>
+
+    <p>
+      <b>Любимые занятия:</b>
+      спать и гулять 😴🌳
+    </p>
+
+    <p>
+      <b>Характер:</b>
+      спокойно-буйный 😎
+    </p>
+
+  </div>
+
+</div>
+
+</div>
+
+
+<script>
+"use strict";
+
+/* =========================================================
+   КОТМАНИЯ
+   ========================================================= */
+
+
+/* ===== НАСТРОЙКИ ===== */
+
+const defaultSettings = {
+  language:"ru",
+  fontSize:"normal",
+  buttonColor:"#2196f3",
+  animations:true
+};
+
+let settings;
+
+try{
+
+  settings = {
+    ...defaultSettings,
+    ...JSON.parse(
+      localStorage.getItem("kotmaniaSettings") || "{}"
+    )
+  };
+
+}catch{
+
+  settings = {...defaultSettings};
+
+}
+
+
+function saveSettings(){
+
+  localStorage.setItem(
+    "kotmaniaSettings",
+    JSON.stringify(settings)
+  );
+
+}
+
+
+/* ===== ЭЛЕМЕНТЫ ===== */
+
+const $ = id => document.getElementById(id);
+
+const sections = [
+  $("settingsSection"),
+  $("gameSection"),
+  $("chatSection"),
+  $("catSection"),
+  $("descriptionSection")
+];
+
+
+/* ===== ПЕРЕВОДЫ ===== */
+
+const translations = {
+
+  ru:{
+    title:"🐈‍⬛ Котмания",
+
+    game:"🎮 Поиграть с Матвеем",
+    chat:"💬 Поговорить с Матвеем",
+    cat:"🐈‍⬛ Показать Матвея",
+    settings:"⚙️ Настройки",
+
+    settingsTitle:"⚙️ Настройки",
+    languageTitle:"🌐 Язык интерфейса",
+    fontTitle:"🔤 Размер текста",
+    colorTitle:"🎨 Цвет кнопок",
+    animationTitle:"✨ Анимации",
+
+    chatTitle:"💬 Поговорить с Матвеем",
+
+    placeholder:"Напиши Матвею...",
+
+    animationOn:"✨ Анимации: ВКЛ",
+    animationOff:"✨ Анимации: ВЫКЛ",
+
+    counter:"💬 Сообщений"
+  },
+
+  en:{
+    title:"🐈‍⬛ Catmania",
+
+    game:"🎮 Play with Matvey",
+    chat:"💬 Talk to Matvey",
+    cat:"🐈‍⬛ Show Matvey",
+    settings:"⚙️ Settings",
+
+    settingsTitle:"⚙️ Settings",
+    languageTitle:"🌐 Interface language",
+    fontTitle:"🔤 Text size",
+    colorTitle:"🎨 Button color",
+    animationTitle:"✨ Animations",
+
+    chatTitle:"💬 Talk to Matvey",
+
+    placeholder:"Write to Matvey...",
+
+    animationOn:"✨ Animations: ON",
+    animationOff:"✨ Animations: OFF",
+
+    counter:"💬 Messages"
+  }
+
+};
+
+
+/* ===== ЯЗЫК ИНТЕРФЕЙСА ===== */
+
+function setInterfaceLanguage(lang){
+
+  settings.language = lang;
+  saveSettings();
+
+  const t = translations[lang];
+
+  $("title").textContent = t.title;
+
+  $("gameBtn").textContent = t.game;
+  $("chatBtn").textContent = t.chat;
+  $("catBtn").textContent = t.cat;
+  $("settingsBtn").textContent = t.settings;
+
+  $("settingsTitle").textContent =
+    t.settingsTitle;
+
+  $("languageTitle").textContent =
+    t.languageTitle;
+
+  $("fontTitle").textContent =
+    t.fontTitle;
+
+  $("colorTitle").textContent =
+    t.colorTitle;
+
+  $("animationTitle").textContent =
+    t.animationTitle;
+
+  $("chatTitle").textContent =
+    t.chatTitle;
+
+  $("chatInput").placeholder =
+    t.placeholder;
+
+  updateChatCounter();
+
+  updateAnimationButton();
+
+  document.documentElement.lang = lang;
+}
+
+
+/* ===== РАЗМЕР ТЕКСТА ===== */
+
+function setFontSize(size){
+
+  document.body.classList.remove(
+    "font-small",
+    "font-normal",
+    "font-large"
+  );
+
+  document.body.classList.add(
+    "font-" + size
+  );
+
+  settings.fontSize = size;
+
+  $("fontSize").value = size;
+
+  saveSettings();
+}
+
+
+/* ===== ЦВЕТ ===== */
+
+function setButtonColor(color){
+
+  settings.buttonColor = color;
+
+  document.documentElement.style
+    .setProperty(
+      "--button-color",
+      color
+    );
+
+  saveSettings();
+}
+
+
+/* ===== АНИМАЦИИ ===== */
+
+function updateAnimationButton(){
+
+  const t =
+    translations[settings.language];
+
+  $("animationBtn").textContent =
+    settings.animations
+      ? t.animationOn
+      : t.animationOff;
+
+}
+
+
+function updateAnimations(){
+
+  document.body.classList.toggle(
+    "no-animations",
+    !settings.animations
+  );
+
+  updateAnimationButton();
+
+  saveSettings();
+}
+
+
+/* ===== СЕКЦИИ ===== */
+
+function closeSection(section){
+
+  if(
+    !section.classList.contains("open") &&
+    section.style.display === "none"
+  ){
+    return;
+  }
+
+  section.classList.remove("open");
+
+  clearTimeout(section._timer);
+
+  section._timer = setTimeout(()=>{
+
+    if(!section.classList.contains("open")){
+      section.style.display = "none";
     }
 
+  },450);
+}
 
-    /* =========================
-       МИНИ-ИГРА
-       ========================= */
 
-    let mood = 0;
+function openSection(section){
 
-    function toggleGame() {
+  clearTimeout(section._timer);
 
-      const game =
-        document.getElementById("game");
+  section.style.display = "block";
 
-      const isOpen =
-        game.style.display === "block";
+  requestAnimationFrame(()=>{
+    section.classList.add("open");
+  });
 
-      closeAllSections();
+}
 
-      if (!isOpen) {
 
-        game.style.display = "block";
+function closeAllSections(){
 
-      }
+  sections.forEach(closeSection);
+
+}
+
+
+function toggleSection(section){
+
+  const wasOpen =
+    section.classList.contains("open");
+
+  closeAllSections();
+
+  if(!wasOpen){
+    openSection(section);
+  }
+
+}
+
+
+/* ===== КНОПКИ ===== */
+
+$("gameBtn").onclick = ()=>{
+  toggleSection($("gameSection"));
+};
+
+$("chatBtn").onclick = ()=>{
+  toggleSection($("chatSection"));
+};
+
+$("settingsBtn").onclick = ()=>{
+  toggleSection($("settingsSection"));
+};
+
+
+/* ===== ПОКАЗАТЬ МАТВЕЯ ===== */
+
+$("catBtn").onclick = ()=>{
+
+  const cat =
+    $("catSection");
+
+  const description =
+    $("descriptionSection");
+
+  const alreadyOpen =
+    cat.classList.contains("open") &&
+    description.classList.contains("open");
+
+  closeAllSections();
+
+  if(!alreadyOpen){
+
+    openSection(cat);
+    openSection(description);
+
+    setTimeout(()=>{
+
+      cat.scrollIntoView({
+        behavior:
+          settings.animations
+            ? "smooth"
+            : "auto",
+
+        block:"start"
+      });
+
+    },30);
+
+  }
+
+};
+
+
+/* =========================================================
+   ИГРА НАСТРОЕНИЯ
+   ========================================================= */
+
+let mood = 50;
+
+function updateMood(){
+
+  $("moodFill").style.width =
+    mood + "%";
+
+  let text;
+
+  if(mood < 25){
+
+    text = "😾 Шшшссс...";
+
+  }else if(mood < 50){
+
+    text = "😼 Мяу... уже лучше.";
+
+  }else if(mood < 75){
+
+    text = "😺 Мяу ❤️ Матвей доволен!";
+
+  }else if(mood < 100){
+
+    text = "😻 Муррр! ❤️";
+
+  }else{
+
+    text =
+      "😻 Муррр! ❤️ Матвей очень доволен!";
+
+    setTimeout(()=>{
+
+      mood = 50;
+      updateMood();
+
+    },1800);
+
+  }
+
+  $("moodText").textContent = text;
+
+}
+
+
+function changeMood(){
+
+  const amount =
+    Math.floor(Math.random()*3)+2;
+
+  mood =
+    Math.min(100,mood + amount);
+
+  updateMood();
+
+}
+
+
+$("feedBtn").onclick =
+  changeMood;
+
+$("petBtn").onclick =
+  changeMood;
+
+
+/* =========================================================
+   ИГРА С МЫШКОЙ
+   ========================================================= */
+
+let mouseScore = 0;
+let mouseActive = false;
+
+function moveMouse(){
+
+  const area =
+    $("mouseArea");
+
+  const mouse =
+    $("mouse");
+
+  const x =
+    30 +
+    Math.random() *
+    Math.max(20,area.clientWidth - 60);
+
+  const y =
+    30 +
+    Math.random() *
+    Math.max(20,area.clientHeight - 60);
+
+  mouse.style.left =
+    x + "px";
+
+  mouse.style.top =
+    y + "px";
+
+  mouse.classList.remove("caught");
+
+  mouseActive = true;
+
+}
+
+
+function resetMouseGame(){
+
+  mouseScore = 0;
+
+  $("mouseScore").textContent =
+    "0";
+
+  $("mouseResult").textContent =
+    "";
+
+  moveMouse();
+
+}
+
+
+$("mouse").addEventListener(
+  "pointerdown",
+  event=>{
+
+    event.preventDefault();
+
+    if(!mouseActive){
+      return;
     }
 
+    mouseActive = false;
 
-    function feedMatvey() {
+    mouseScore++;
 
-      increaseMood();
+    $("mouseScore").textContent =
+      mouseScore;
 
-    }
+    $("mouse").classList.add(
+      "caught"
+    );
 
 
-    function petMatvey() {
+    if(mouseScore >= 10){
 
-      increaseMood();
+      $("mouseResult").textContent =
+        "😻 Матвей поймал всех мышек! Мяу ❤️";
 
-    }
+      setTimeout(
+        resetMouseGame,
+        1800
+      );
 
+    }else{
 
-    function increaseMood() {
-
-      const amount =
-        Math.floor(Math.random() * 3) + 2;
-
-      mood += amount;
-
-
-      const phrases = [
-        "Мяу ❤️",
-        "Муррр 😻",
-        "Шшшсс 😾"
-      ];
-
-
-      const randomPhrase =
-        phrases[
-          Math.floor(
-            Math.random() * phrases.length
-          )
-        ];
-
-
-      if (mood >= 100) {
-
-        mood = 0;
-
-        document.getElementById("moodText").textContent =
-          "Муррр! ❤️ Матвей очень доволен!";
-
-      } else {
-
-        document.getElementById("moodText").textContent =
-          randomPhrase +
-          " Настроение: " +
-          mood +
-          "%";
-
-      }
-
-
-      document.getElementById("mood").style.width =
-        mood + "%";
-
-    }
-
-
-    /* =========================
-       ЧАТ
-       ========================= */
-
-    let messageCount = 0;
-
-    const maxMessages = 20;
-
-    let chatLocked = false;
-
-    let lockTimer = null;
-
-
-    function toggleChat() {
-
-      const chat =
-        document.getElementById("chat");
-
-      const isOpen =
-        chat.style.display === "block";
-
-      closeAllSections();
-
-      if (!isOpen) {
-
-        chat.style.display = "block";
-
-      }
-    }
-
-
-    function handleEnter(event) {
-
-      if (event.key === "Enter") {
-
-        sendMessage();
-
-      }
-
-    }
-
-
-    function sendMessage() {
-
-      if (chatLocked) {
-
-        return;
-
-      }
-
-
-      const input =
-        document.getElementById("chatInput");
-
-      const messages =
-        document.getElementById("messages");
-
-      const text =
-        input.value.trim();
-
-
-      if (text === "") {
-
-        return;
-
-      }
-
-
-      /* Сообщение пользователя */
-
-      const userMessage =
-        document.createElement("div");
-
-      userMessage.className =
-        "message user-message";
-
-      userMessage.textContent =
-        "Ты: " + text;
-
-      messages.appendChild(userMessage);
-
-
-      /* Ответ Матвея */
-
-      const phrases = [
-        "Мяу ❤️",
-        "Муррр 😻"
-      ];
-
-
-      const randomPhrase =
-        phrases[
-          Math.floor(
-            Math.random() * phrases.length
-          )
-        ];
-
-
-      const matveyMessage =
-        document.createElement("div");
-
-      matveyMessage.className =
-        "message";
-
-      matveyMessage.textContent =
-        "🐈‍⬛ Матвей: " +
-        randomPhrase;
-
-      messages.appendChild(matveyMessage);
-
-
-      messageCount++;
-
-      input.value = "";
-
-
-      document.getElementById("messageCount").textContent =
-        "Сообщений: " +
-        messageCount +
-        " / 20";
-
-
-      messages.scrollTop =
-        messages.scrollHeight;
-
-
-      if (messageCount >= maxMessages) {
-
-        lockChat();
-
-      }
-
-    }
-
-
-    /* =========================
-       БЛОКИРОВКА НА 10 МИНУТ
-       ========================= */
-
-    function lockChat() {
-
-      chatLocked = true;
-
-
-      const input =
-        document.getElementById("chatInput");
-
-
-      const button =
-        document.querySelector("#chat button");
-
-
-      input.disabled = true;
-
-      button.disabled = true;
-
-
-      document.getElementById("messageCount").textContent =
-        "🐈‍⬛ Матвей перегрузился!";
-
-
-      let secondsLeft = 600;
-
-
-      updateTimer(secondsLeft);
-
-
-      lockTimer =
-        setInterval(function() {
-
-          secondsLeft--;
-
-          updateTimer(secondsLeft);
-
-
-          if (secondsLeft <= 0) {
-
-            clearInterval(lockTimer);
-
-            unlockChat();
-
-          }
-
-        }, 1000);
+      setTimeout(
+        moveMouse,
+        settings.animations
+          ? 180
+          : 0
+      );
 
     }
 
-
-    function updateTimer(seconds) {
-
-      const minutes =
-        Math.floor(seconds / 60);
-
-      const secondsPart =
-        seconds % 60;
+  }
+);
 
 
-      document.getElementById("timer").textContent =
-        "⏳ Отдых: " +
-        minutes +
-        ":" +
-        String(secondsPart).padStart(2, "0");
+/* =========================================================
+   ЧАТ
+   ========================================================= */
 
-    }
+const MAX_CHAT_MESSAGES = 20;
+
+let chatMessagesCount = 0;
+let chatLocked = false;
+let chatLanguage = "ru";
+let unlockTimer = null;
 
 
-    /* =========================
-       РАЗБЛОКИРОВКА
-       ========================= */
+/* ===== СЧЁТЧИК ===== */
 
-    function unlockChat() {
+function updateChatCounter(){
+
+  const t =
+    translations[settings.language];
+
+  $("chatCounter").textContent =
+    `${t.counter}: ${chatMessagesCount}/${MAX_CHAT_MESSAGES}`;
+
+}
+
+
+/* ===== ТЕКСТ ===== */
+
+function cleanText(text){
+
+  return text
+    .toLowerCase()
+    .replace(/[.,!?;:"'()[\]{}<>]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+
+}
+
+
+function hasWord(text,word){
+
+  return new RegExp(
+    "(^|\\s)" +
+    word.replace(
+      /[.*+?^${}()|[\]\\]/g,
+      "\\$&"
+    ) +
+    "(?=\\s|$)"
+  ).test(text);
+
+}
+
+
+/* =========================================================
+   ОТВЕТЫ МАТВЕЯ
+   ========================================================= */
+
+function getMatveyAI(input){
+
+  const text =
+    cleanText(input);
+
+  const ru =
+    chatLanguage === "ru";
+
+
+  if(
+    hasWord(text,"привет") ||
+    hasWord(text,"здравствуй") ||
+    hasWord(text,"hello") ||
+    hasWord(text,"hi")
+  ){
+
+    return randomResponse(
+      ru
+        ? [
+            "Мяу! 😺",
+            "Мурр! Привет! ❤️",
+            "Мяу-мяу! 🐈‍⬛"
+          ]
+        : [
+            "Meow! 😺",
+            "Mrrr! Hello! ❤️",
+            "Meow-meow! 🐈‍⬛"
+          ]
+    );
+
+  }
+
+
+  if(
+    text.includes("как ты") ||
+    text.includes("как дела") ||
+    text.includes("how are you")
+  ){
+
+    return randomResponse(
+      ru
+        ? [
+            "У меня всё мурррно! 😸",
+            "Отлично! Я готов гулять! 🐈‍⬛",
+            "Мяу! Настроение хорошее ❤️"
+          ]
+        : [
+            "I'm doing purr-fect! 😸",
+            "Great! I'm ready to go outside! 🐈‍⬛",
+            "Meow! I'm in a good mood ❤️"
+          ]
+    );
+
+  }
+
+
+  if(
+    hasWord(text,"еда") ||
+    hasWord(text,"кушать") ||
+    hasWord(text,"корм") ||
+    hasWord(text,"food") ||
+    hasWord(text,"eat")
+  ){
+
+    return randomResponse(
+      ru
+        ? [
+            "🍗 Где моя вкусняшка?",
+            "Мяу! Я бы сейчас поел! 😺",
+            "Кормить меня? Хорошая идея! ❤️"
+          ]
+        : [
+            "🍗 Where is my tasty food?",
+            "Meow! I could eat something! 😺",
+            "Feed me? Great idea! ❤️"
+          ]
+    );
+
+  }
+
+
+  if(
+    hasWord(text,"гулять") ||
+    hasWord(text,"улица") ||
+    hasWord(text,"выйти") ||
+    hasWord(text,"outside") ||
+    hasWord(text,"walk")
+  ){
+
+    return randomResponse(
+      ru
+        ? [
+            "🌳 Гулять! Гулять! Мяу!",
+            "Я люблю гулять на улице! 🐈‍⬛",
+            "Выпускай меня! 😼"
+          ]
+        : [
+            "🌳 Walk! Walk! Meow!",
+            "I love going outside! 🐈‍⬛",
+            "Let me outside! 😼"
+          ]
+    );
+
+  }
+
+
+  if(
+    hasWord(text,"спать") ||
+    hasWord(text,"сон") ||
+    hasWord(text,"sleep")
+  ){
+
+    return randomResponse(
+      ru
+        ? [
+            "😴 Я сплю...",
+            "Мурр... время для сна.",
+            "ZZZ... 🐈‍⬛💤"
+          ]
+        : [
+            "😴 I'm sleeping...",
+            "Mrrr... time to sleep.",
+            "ZZZ... 🐈‍⬛💤"
+          ]
+    );
+
+  }
+
+
+  if(
+    hasWord(text,"люблю") ||
+    hasWord(text,"любовь") ||
+    hasWord(text,"love")
+  ){
+
+    return randomResponse(
+      ru
+        ? [
+            "Мяу ❤️ Я тоже тебя люблю!",
+            "Мурррр ❤️",
+            "Ты хороший человек! 🐈‍⬛❤️"
+          ]
+        : [
+            "Meow ❤️ I love you too!",
+            "Purrrr ❤️",
+            "You're a good human! 🐈‍⬛❤️"
+          ]
+    );
+
+  }
+
+
+  if(
+    hasWord(text,"какашка") ||
+    hasWord(text,"какашка") ||
+    hasWord(text,"poop")
+  ){
+
+    return randomResponse(
+      ru
+        ? [
+            "💩 Эй! Кто тут какашка?",
+            "Мяу... странная тема 😂",
+            "🐈‍⬛💩 Котмания одобряет!"
+          ]
+        : [
+            "💩 Hey! Who is the poop?",
+            "Meow... weird topic 😂",
+            "🐈‍⬛💩 Catmania approves!"
+          ]
+    );
+
+  }
+
+
+  if(
+    text.includes("?") ||
+    hasWord(text,"почему") ||
+    hasWord(text,"зачем") ||
+    hasWord(text,"когда") ||
+    hasWord(text,"where") ||
+    hasWord(text,"why") ||
+    hasWord(text,"when")
+  ){
+
+    return randomResponse(
+      ru
+        ? [
+            "Мяу? 🤔",
+            "Интересный вопрос...",
+            "Я подумаю над этим! 🐈‍⬛"
+          ]
+        : [
+            "Meow? 🤔",
+            "Interesting question...",
+            "I'll think about it! 🐈‍⬛"
+          ]
+    );
+
+  }
+
+
+  return randomResponse(
+    ru
+      ? [
+          "Мяу! 🐈‍⬛",
+          "Мурр... расскажи ещё!",
+          "Я внимательно слушаю. ❤️",
+          "Интересно! Мяу!",
+          "🐈‍⬛ *смотрит на тебя*"
+        ]
+      : [
+          "Meow! 🐈‍⬛",
+          "Mrrr... tell me more!",
+          "I'm listening. ❤️",
+          "Interesting! Meow!",
+          "🐈‍⬛ *looks at you*"
+        ]
+  );
+
+}
+
+
+function randomResponse(list){
+
+  return list[
+    Math.floor(
+      Math.random()*list.length
+    )
+  ];
+
+}
+
+
+/* ===== ДОБАВЛЕНИЕ СООБЩЕНИЯ ===== */
+
+function addMessage(text,type){
+
+  const message =
+    document.createElement("div");
+
+  message.className =
+    "message " +
+    (
+      type === "user"
+        ? "user-message"
+        : "matvey-message"
+    );
+
+  message.textContent = text;
+
+  $("chatMessages").appendChild(
+    message
+  );
+
+
+  /* Чтобы чат не разрастался бесконечно */
+
+  while(
+    $("chatMessages").children.length > 40
+  ){
+
+    $("chatMessages")
+      .firstElementChild
+      .remove();
+
+  }
+
+
+  $("chatMessages").scrollTop =
+    $("chatMessages").scrollHeight;
+
+}
+
+
+/* ===== БЛОКИРОВКА ===== */
+
+function lockChat(){
+
+  chatLocked = true;
+
+  let seconds = 600;
+
+  $("chatInput").disabled = true;
+  $("sendBtn").disabled = true;
+
+  clearInterval(unlockTimer);
+
+  updateLockTimer(seconds);
+
+
+  unlockTimer = setInterval(()=>{
+
+    seconds--;
+
+    updateLockTimer(seconds);
+
+
+    if(seconds <= 0){
+
+      clearInterval(unlockTimer);
 
       chatLocked = false;
+      chatMessagesCount = 0;
 
-      messageCount = 0;
+      $("chatInput").disabled = false;
+      $("sendBtn").disabled = false;
 
+      updateChatCounter();
 
-      const input =
-        document.getElementById("chatInput");
-
-
-      const button =
-        document.querySelector("#chat button");
-
-
-      input.disabled = false;
-
-      button.disabled = false;
-
-      input.value = "";
-
-
-      document.getElementById("messageCount").textContent =
-        "Сообщений: 0 / 20";
-
-
-      document.getElementById("timer").textContent =
+      $("chatStatus").textContent =
         "🐈‍⬛ Матвей снова в строю! Мяу ❤️";
 
     }
 
+  },1000);
 
-    /* =========================
-       ПОКАЗ МАТВЕЯ
-       ========================= */
-
-    function showMatvey() {
-
-      const cat =
-        document.getElementById("cat");
-
-      const description =
-        document.getElementById("description");
-
-      const text =
-        document.getElementById("text");
+}
 
 
-      const isOpen =
-        cat.style.display === "block";
+function updateLockTimer(seconds){
+
+  const minutes =
+    Math.floor(seconds/60);
+
+  const secs =
+    seconds % 60;
+
+  $("chatStatus").textContent =
+    `🐈‍⬛ Матвей перегрузился! Осталось ${minutes}:${String(secs).padStart(2,"0")}`;
+
+}
 
 
-      closeAllSections();
+/* ===== ОТПРАВКА ===== */
+
+function sendMessage(){
+
+  if(chatLocked){
+    return;
+  }
+
+  const input =
+    $("chatInput");
+
+  const text =
+    input.value.trim();
+
+  if(!text){
+    return;
+  }
 
 
-      if (!isOpen) {
+  addMessage(
+    text,
+    "user"
+  );
 
-        cat.style.display = "block";
+  input.value = "";
 
-        description.style.display = "block";
+  chatMessagesCount++;
 
-        text.textContent =
-          "Мяу! ❤️ Вот Матвей!";
+  updateChatCounter();
 
-      }
+
+  setTimeout(()=>{
+
+    if(!chatLocked){
+
+      addMessage(
+        getMatveyAI(text),
+        "matvey"
+      );
 
     }
 
-  </script>
+  },settings.animations ? 180 : 0);
+
+
+  if(
+    chatMessagesCount >= MAX_CHAT_MESSAGES
+  ){
+
+    setTimeout(
+      lockChat,
+      settings.animations ? 300 : 0
+    );
+
+  }
+
+}
+
+
+/* ===== ЧАТ СОБЫТИЯ ===== */
+
+$("sendBtn").onclick =
+  sendMessage;
+
+$("chatInput").addEventListener(
+  "keydown",
+  event=>{
+
+    if(event.key === "Enter"){
+      sendMessage();
+    }
+
+  }
+);
+
+
+/* ===== ЯЗЫК ЧАТА ===== */
+
+$("ruChatBtn").onclick = ()=>{
+
+  chatLanguage = "ru";
+
+  addMessage(
+    "🇷🇺 Теперь я говорю по-русски! Мяу ❤️",
+    "matvey"
+  );
+
+};
+
+
+$("enChatBtn").onclick = ()=>{
+
+  chatLanguage = "en";
+
+  addMessage(
+    "🇬🇧 Now I speak English! Meow ❤️",
+    "matvey"
+  );
+
+};
+
+
+/* =========================================================
+   НАСТРОЙКИ СОБЫТИЯ
+   ========================================================= */
+
+$("ruInterfaceBtn").onclick = ()=>{
+
+  setInterfaceLanguage("ru");
+
+};
+
+
+$("enInterfaceBtn").onclick = ()=>{
+
+  setInterfaceLanguage("en");
+
+};
+
+
+$("fontSize").onchange = event=>{
+
+  setFontSize(
+    event.target.value
+  );
+
+};
+
+
+document
+  .querySelectorAll(".colorBtn")
+  .forEach(button=>{
+
+    button.onclick = ()=>{
+
+      setButtonColor(
+        button.dataset.color
+      );
+
+    };
+
+  });
+
+
+$("animationBtn").onclick = ()=>{
+
+  settings.animations =
+    !settings.animations;
+
+  updateAnimations();
+
+};
+
+
+/* =========================================================
+   ЛАПКА
+   ========================================================= */
+
+const paw =
+  $("pawEffect");
+
+let pawTimer;
+
+
+document.addEventListener(
+  "pointerdown",
+  event=>{
+
+    if(
+      !settings.animations ||
+      event.target.closest(
+        "button,input,select"
+      )
+    ){
+      return;
+    }
+
+
+    clearTimeout(pawTimer);
+
+    paw.classList.remove("show");
+
+    paw.style.left =
+      event.clientX + "px";
+
+    paw.style.top =
+      event.clientY + "px";
+
+
+    void paw.offsetWidth;
+
+    paw.classList.add("show");
+
+
+    pawTimer =
+      setTimeout(
+        ()=>{
+          paw.classList.remove("show");
+        },
+        500
+      );
+
+  },
+  {passive:true}
+);
+
+
+/* =========================================================
+   ЗАГРУЗКА
+   ========================================================= */
+
+function loadSettings(){
+
+  setInterfaceLanguage(
+    settings.language
+  );
+
+  setFontSize(
+    settings.fontSize
+  );
+
+  setButtonColor(
+    settings.buttonColor
+  );
+
+  updateAnimations();
+
+  updateMood();
+
+  updateChatCounter();
+
+  setTimeout(
+    moveMouse,
+    200
+  );
+
+}
+
+
+loadSettings();
+
+</script>
 
 </body>
 </html>
